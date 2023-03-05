@@ -24,11 +24,10 @@ jobs:
           curl -L https://download.geofabrik.de/australia-oceania/australia-latest.osm.pbf -o aus/osm.pbf
           
           java -Xmx7G -jar otp.jar --buildStreet aus
+          mv aus/streetGraph.obj streetGraph.obj
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            aus/streetGraph.obj
-          tag_name: berlin-street-graph
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            streetGraph.obj
+          tag_name: aus-street-graph
