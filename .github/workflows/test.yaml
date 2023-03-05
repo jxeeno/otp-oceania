@@ -23,11 +23,10 @@ jobs:
           curl -L https://download.geofabrik.de/europe/germany/berlin-latest.osm.pbf -o berlin/osm.pbf
           
           java -Xmx7G -jar otp.jar --buildStreet berlin
+          mv berlin/streetGraph.obj streetGraph.obj
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            berlin/streetGraph.obj
+            streetGraph.obj
           tag_name: berlin-street-graph
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
