@@ -22,7 +22,7 @@ jobs:
           mkdir berlin
           curl -L https://download.geofabrik.de/europe/germany/berlin-latest.osm.pbf -o berlin/osm.pbf
           
-          java -Xmx2G -jar otp.jar --buildStreet berlin
+          java -Xmx7G -jar otp.jar --buildStreet berlin
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
