@@ -25,22 +25,39 @@ jobs:
           mkdir aus
           mkdir nsw
           mkdir vic
+          mkdir act
+          mkdir sa
+          mkdir qld
           curl -L https://download.geofabrik.de/australia-oceania/australia-latest.osm.pbf -o aus/osm.pbf
 
           docker run -w /wkd -v $(pwd):/wkd stefda/osmium-tool osmium extract --bbox=139.77,-37.61,154.36,-27.53 -o nsw/osm.pbf aus/osm.pbf
           docker run -w /wkd -v $(pwd):/wkd stefda/osmium-tool osmium extract --bbox=139.77,-39.59,152.71,-33.65 -o vic/osm.pbf aus/osm.pbf
+          docker run -w /wkd -v $(pwd):/wkd stefda/osmium-tool osmium extract --bbox=148.1737,-36.3525,149.6922,-34.5433 -o act/osm.pbf aus/osm.pbf
+          docker run -w /wkd -v $(pwd):/wkd stefda/osmium-tool osmium extract --bbox=128.01,-38.81,141.67,-25.18 -o sa/osm.pbf aus/osm.pbf
+          docker run -w /wkd -v $(pwd):/wkd stefda/osmium-tool osmium extract --bbox=137.52,-29.68,154.62,-10.31 -o qld/osm.pbf aus/osm.pbf
 
           java -Xmx7G -jar otp.jar --buildStreet nsw
           java -Xmx7G -jar otp.jar --buildStreet vic
+          java -Xmx7G -jar otp.jar --buildStreet act
+          java -Xmx7G -jar otp.jar --buildStreet sa
+          java -Xmx7G -jar otp.jar --buildStreet qld
+          java -Xmx7G -jar otp.jar --buildStreet aus
+
+          mv nsw/streetGraph.obj streetGraph.nsw.obj
+          mv vic/streetGraph.obj streetGraph.vic.obj
+          mv act/streetGraph.obj streetGraph.act.obj
+          mv sa/streetGraph.obj streetGraph.sa.obj
+          mv qld/streetGraph.obj streetGraph.qld.obj
+          mv aus/streetGraph.obj streetGraph.aus.obj
+          
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            nsw/streetGraph.obj
-          tag_name: nsw-street-graph
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            vic/streetGraph.obj
-          tag_name: vic-street-graph
+            streetGraph.nsw.obj
+            streetGraph.vic.obj
+            streetGraph.act.obj
+            streetGraph.sa.obj
+            streetGraph.qld.obj
+            streetGraph.aus.obj
+          tag_name: aus-street-graph
