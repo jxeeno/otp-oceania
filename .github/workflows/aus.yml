@@ -27,8 +27,8 @@ jobs:
           mkdir vic
           curl -L https://download.geofabrik.de/australia-oceania/australia-latest.osm.pbf -o aus/osm.pbf
 
-          docker run -it -w /wkd -v $(pwd):/wkd stefda/osmium-tool osmium extract --bbox=139.77,-37.61,154.36,-27.53 -o nsw/osm.pbf aus/osm.pbf
-          docker run -it -w /wkd -v $(pwd):/wkd stefda/osmium-tool osmium extract --bbox=139.77,-39.59,152.71,-33.65 -o vic/osm.pbf aus/osm.pbf
+          docker run -w /wkd -v $(pwd):/wkd stefda/osmium-tool osmium extract --bbox=139.77,-37.61,154.36,-27.53 -o nsw/osm.pbf aus/osm.pbf
+          docker run -w /wkd -v $(pwd):/wkd stefda/osmium-tool osmium extract --bbox=139.77,-39.59,152.71,-33.65 -o vic/osm.pbf aus/osm.pbf
 
           java -Xmx7G -jar otp.jar --buildStreet nsw
           java -Xmx7G -jar otp.jar --buildStreet vic
