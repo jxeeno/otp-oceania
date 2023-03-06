@@ -34,15 +34,13 @@ jobs:
           java -Xmx7G -jar otp.jar --buildStreet vic
       - name: Release
         uses: softprops/action-gh-release@v1
-        working-directory: ./nsw
         with:
           files: |
-            streetGraph.obj
+            nsw/streetGraph.obj
           tag_name: nsw-street-graph
       - name: Release
         uses: softprops/action-gh-release@v1
-        working-directory: ./vic
         with:
           files: |
-            streetGraph.obj
+            vic/streetGraph.obj
           tag_name: vic-street-graph
